@@ -1,5 +1,7 @@
-﻿using System.Reactive.Linq;
+﻿using System.Reactive.Concurrency;
+using System.Reactive.Linq;
 using BinanceUi.Services;
+using BinanceUi.Various;
 using Moq;
 
 namespace BinanceUi.Tests.Services;
@@ -12,7 +14,8 @@ internal class BinanceWebsocketServiceTests
     [SetUp]
     public void SetUp()
     {
-        _itemUnderTests = new BinanceWebsocketService();
+        var schedulerRepository = new SchedulerRepository(ImmediateScheduler.Instance, ImmediateScheduler.Instance);
+        _itemUnderTests = new BinanceWebsocketService(schedulerRepository);
     }
 
     [Test]
@@ -79,5 +82,16 @@ internal class BinanceWebsocketServiceTests
 
             await taskCompletionSource.Task;
         }
+    }
+
+    [Test]
+    public async Task GetTicker()
+    {
+        var result = await _itemUnderTests.GetTicker("btcusdc")
+            .Take(3)
+            .ToList();
+
+        Assert.That(result.Count, Is.EqualTo(3));
+        Assert.That(result[0].Symbol, Is.EqualTo("BTCUSDC"));
     }
 }

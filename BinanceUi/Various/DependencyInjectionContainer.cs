@@ -34,7 +34,7 @@ public class DependencyInjectionContainer
 
         serviceProvider.AddSingleton(_synchronizationContextScheduler);
         serviceProvider.AddSingleton<ImmediateOrDispatcherScheduler>();
-        serviceProvider.AddSingleton<SchedulerRepository>();
+        serviceProvider.AddSingleton(t=>new SchedulerRepository(t.GetRequiredService<ImmediateOrDispatcherScheduler>(), t.GetRequiredService<SynchronizationContextScheduler>()));
 
         serviceProvider.AddSingleton<AppResourceRegistrator>();
         serviceProvider.AddSingleton<HttpClient>();

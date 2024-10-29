@@ -30,7 +30,7 @@ public class ImmediateOrDispatcherScheduler : IScheduler
 
     public IDisposable Schedule<TState>(TState state, Func<IScheduler, TState, IDisposable> action)
     {
-        return Dispatcher.CurrentDispatcher == Application.Current.Dispatcher
+        return Dispatcher.CurrentDispatcher == Application.Current?.Dispatcher
             ? Scheduler.Immediate.Schedule(state, action)
             : _synchronizationContextScheduler.Schedule(state, action);
     }

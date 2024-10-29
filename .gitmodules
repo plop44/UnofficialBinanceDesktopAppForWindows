@@ -1,0 +1,3 @@
+[submodule "ObservableLookup"]
+	path = ObservableLookup
+	url = https://github.com/plop44/ObservableLookup

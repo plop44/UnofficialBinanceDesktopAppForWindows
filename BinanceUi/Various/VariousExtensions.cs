@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -65,5 +66,15 @@ public static class VariousExtensions
         var disposable = item as IDisposable;
         (itemsControl.ItemsSource as IList)?.Remove(item);
         disposable?.Dispose();
+    }
+    public static IDisposable DisposeWith(this IDisposable disposable, CompositeDisposable compositeDisposable)
+    {
+        if (compositeDisposable == null)
+            throw new ArgumentNullException(nameof(compositeDisposable));
+        if (disposable == null)
+            throw new ArgumentNullException(nameof(disposable));
+
+        compositeDisposable.Add(disposable);
+        return disposable;
     }
 }

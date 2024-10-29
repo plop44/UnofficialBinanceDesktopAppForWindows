@@ -6,12 +6,12 @@ public class SchedulerRepository
 {
     public const string ResourceName = nameof(SchedulerRepository);
 
-    public SchedulerRepository(ImmediateOrDispatcherScheduler immediateOrDispatcherScheduler, SynchronizationContextScheduler synchronizationContextScheduler)
+    public SchedulerRepository(IScheduler immediateOrDispatcherScheduler, IScheduler synchronizationContextScheduler)
     {
         ImmediateOrDispatcherScheduler = immediateOrDispatcherScheduler;
         SynchronizationContextScheduler = synchronizationContextScheduler;
     }
 
-    public ImmediateOrDispatcherScheduler ImmediateOrDispatcherScheduler { get; }
-    public SynchronizationContextScheduler SynchronizationContextScheduler { get; }
+    public IScheduler ImmediateOrDispatcherScheduler { get; }
+    public IScheduler SynchronizationContextScheduler { get; }
 }

@@ -10,6 +10,8 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using BinanceUi.Services.OrderBooks;
+using BinanceUi.Various;
+using ObservableLookup;
 
 namespace BinanceUi.Services;
 
